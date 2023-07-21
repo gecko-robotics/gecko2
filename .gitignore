@@ -1,0 +1,12 @@
+DS_Store
+._*
+old
+archive
+*.pyc
+build
+dist
+poetry.lock
+.ipynb_checkpoints
+__pycache__
+.pytest_cache
+.env
