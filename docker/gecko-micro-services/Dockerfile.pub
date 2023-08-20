@@ -1,0 +1,44 @@
+# https://www.jmoisio.eu/en/blog/2020/06/01/building-cpp-containers-using-docker-and-cmake/
+# FROM debian:latest
+FROM alpine:latest AS base
+
+# ARG ROOT_PASSWORD=root
+
+RUN apk update; \
+    apk upgrade; \
+    apk add --no-cache libstdc++;
+
+# RUN apt update; \
+#     apt install -y build-essential git cmake ca-certificates
+
+FROM base AS builder
+
+RUN apk add --no-cache \
+        nano \
+        build-base \
+        g++ \
+        cmake \
+        git;
+    # rm /var/cache/apk/* \
+    # echo "root:${ROOT_PASSWORD}" | chpasswd;
+
+# cmake: install(TARGETS server client RUNTIME DESTINATION bin)
+RUN mkdir /apps; \
+    cd /apps; \
+    git clone https://github.com/gecko-robotics/gunther.git; \
+    cd gunther; \
+    pwd; \
+    mkdir -p cpp/build && cd cpp/build; \
+    cmake .. && make;
+
+FROM base AS runtime
+
+RUN mkdir -p /apps
+
+COPY --from=builder /apps/gunther/cpp/build /apps
+
+EXPOSE 22
+
+# D: don't detach and thus not a daemon
+# e: errors to stderr instead of system log
+CMD ["/bin/sh"]

@@ -1,0 +1,26 @@
+# docker run -it --rm walchko/alpine-gecko /bin/sh
+---
+version: '3'
+
+services:
+  pub:
+    build:
+      context: .
+      dockerfile: Dockerfile.pub
+    image: walchko/alpine-gecko-pub
+    container_name: alpine-gecko-pub
+    hostname: alpineGeckoPub
+    # ports:
+    #   - "9000:9000/udp"
+    command: ["/apps/examples/simple","b"]
+
+  sub:
+    build:
+      context: .
+      dockerfile: Dockerfile.pub
+    image: walchko/alpine-gecko-sub
+    container_name: alpine-gecko-sub
+    hostname: alpineGeckoSub
+    # ports:
+    #   - "9000:9000/udp"
+    command: ["/apps/examples/simple","s"]
