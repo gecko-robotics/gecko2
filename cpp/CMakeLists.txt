@@ -75,41 +75,23 @@ include(FetchContent)
 # gciMock -----------------
 if(USE_MOCK)
     FetchContent_Declare(gcimock
-        GIT_REPOSITORY "git@github.com:the-guild-of-calamitous-intent/gciMock.git"
+        GIT_REPOSITORY "https://github.com/the-guild-of-calamitous-intent/gciMock.git"
         GIT_TAG "origin/main"
-        # SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gcimock"
     )
     LIST(APPEND libs gcimock)
 endif()
 
-# yivo -----------------
-# FetchContent_Declare(yivo
-#   GIT_REPOSITORY "git@github.com:MomsFriendlyRobotCompany/yivo.git"
-#   GIT_TAG "origin/main"
-#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/yivo"
-#   SOURCE_SUBDIR "cpp"
-# )
-
-# # gciSensors -----------------
-# FetchContent_Declare(gcisensors
-#   GIT_REPOSITORY "git@github.com:the-guild-of-calamitous-intent/gciSensors.git"
-#   GIT_TAG "origin/main"
-#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gcisensors"
-# )
-
-# squaternion -----------------
-# FetchContent_Declare(squaternion
-#   GIT_REPOSITORY "git@github.com:MomsFriendlyRobotCompany/squaternion.git"
-#   GIT_TAG "origin/master"
-#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/squaternion"
-#   SOURCE_SUBDIR "cpp"
-# )
+# gunther -----------------
+FetchContent_Declare(gunther
+  GIT_REPOSITORY "https://github.com/gecko-robotics/gunther.git"
+  GIT_TAG "origin/main"
+  SOURCE_SUBDIR "cpp"
+)
 
 # marko -----------------
 FetchContent_Declare(marko
     GIT_REPOSITORY "https://github.com/gecko-robotics/marko.git"
     GIT_TAG "origin/master"
-    # SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/marko"
     # URL https://github.com/gecko-robotics/marko/archive/edebf9ec5df7e672fc85bea132405006675293bc.zip
     SOURCE_SUBDIR "cpp"
 )
@@ -118,7 +100,6 @@ FetchContent_Declare(marko
 FetchContent_Declare(messages
     GIT_REPOSITORY "https://github.com/gecko-robotics/messages.git"
     GIT_TAG "origin/main"
-    # SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/messages"
     # URL https://github.com/gecko-robotics/messages/archive/refs/heads/main.zip
     SOURCE_SUBDIR "cpp"
 )
@@ -126,17 +107,18 @@ FetchContent_Declare(messages
 LIST(APPEND libs
     messages
     marko
+    gunther
 )
 
 FetchContent_MakeAvailable( ${libs} )
 
-foreach(lib ${libs})
-    if(${lib}_POPULATED)
-        message(STATUS "=> ${Green}Found${Reset} ${lib}")
-    else()
-        message(STATUS "*** ${Red}Missing${Reset} ${lib}")
-    endif()
-endforeach()
+# foreach(lib ${libs})
+#     if(DEFINED ${lib}_POPULATED)
+#         message(STATUS "=> ${Green}Found${Reset} ${lib}")
+#     else()
+#         message(STATUS "*** ${Red}Missing${Reset} ${lib}")
+#     endif()
+# endforeach()
 
 
 # Library =====================================================================
@@ -154,6 +136,7 @@ target_link_libraries(${PROJECT_NAME}
     INTERFACE
         marko
         messages
+        gunther
         # Threads::Threads
 )
 
