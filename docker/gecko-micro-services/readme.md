@@ -2,8 +2,8 @@
 
 This is a simple way to do it using Alpine Linux with the image
 
-- ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/walchko/alpine-gecko-pub/latest)
-- ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/walchko/alpine-gecko-sub/latest)
+- Pub: ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/walchko/alpine-gecko-pub/latest)
+- Sub: ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/walchko/alpine-gecko-sub/latest)
 
 ## Usage with `docker-compose`
 
