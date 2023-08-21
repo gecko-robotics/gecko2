@@ -33,45 +33,43 @@ else()
     set(BUILD_GTESTS OFF)
 endif()
 
-# file(SIZE libgecko2.a LIBSIZE)
-# message(">> Size ${LIBSIZE}")
-
 # Threads -----------------
-find_package(Threads REQUIRED)
-if(Threads_FOUND)
-    message(STATUS ">> Threads found")
-    if(CMAKE_USE_PTHREADS_INIT)
-        message(STATUS " -> Using pthreads")
-    endif()
+# find_package(Threads REQUIRED)
+# if(Threads_FOUND)
+#     message(STATUS ">> Threads found")
+#     if(CMAKE_USE_PTHREADS_INIT)
+#         message(STATUS " -> Using pthreads")
+#     endif()
+# else()
+#     message(WARNING "*** Could not find Threads ***")
+# endif()
+
+if(DEFINED USE_MOCK)
+    message(STATUS "Using mock interfaces")
 else()
-    message(WARNING "*** Could not find Threads ***")
+    message(STATUS "Not using mock interfaces")
+    set(USE_MOCK OFF)
 endif()
 
 include(FetchContent)
 
-# option(USE_SERIALCOMM "Using serialcomm library" ON)
-# if(USE_SERIALCOMM)
-    # # serialcomm -----------------
-    # FetchContent_Declare(serialcomm
-    # GIT_REPOSITORY "https://github.com/gecko-robotics/serialcomm.git"
-    # GIT_TAG "origin/main"
-    # SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/serialcomm"
-    # )
-# endif(USE_SERIALCOMM)
-
 # gciMock -----------------
-# FetchContent_Declare(gcimock
-#   GIT_REPOSITORY "git@github.com:the-guild-of-calamitous-intent/gciMock.git"
-#   GIT_TAG "origin/main"
-#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gcimock"
-# )
+if(USE_MOCK)
+    FetchContent_Declare(gcimock
+        GIT_REPOSITORY "git@github.com:the-guild-of-calamitous-intent/gciMock.git"
+        GIT_TAG "origin/main"
+        SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gcimock"
+    )
+    LIST(APPEND libs gcimock)
+endif()
 
 # yivo -----------------
-FetchContent_Declare(yivo
-  GIT_REPOSITORY "git@github.com:MomsFriendlyRobotCompany/yivo.cpp.git"
-  GIT_TAG "origin/main"
-  SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/yivo"
-)
+# FetchContent_Declare(yivo
+#   GIT_REPOSITORY "git@github.com:MomsFriendlyRobotCompany/yivo.git"
+#   GIT_TAG "origin/main"
+#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/yivo"
+#   SOURCE_SUBDIR "cpp"
+# )
 
 # # gciSensors -----------------
 # FetchContent_Declare(gcisensors
@@ -81,25 +79,32 @@ FetchContent_Declare(yivo
 # )
 
 # squaternion -----------------
-FetchContent_Declare(squaternion
-  GIT_REPOSITORY "git@github.com:MomsFriendlyRobotCompany/squaternion.cpp.git"
-  GIT_TAG "origin/main"
-  SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/squaternion"
-)
-
-# marko -----------------
-# FetchContent_Declare(marko
-#   GIT_REPOSITORY "https://github.com/gecko-robotics/marko.cpp.git"
-#   GIT_TAG "origin/main"
-#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/marko"
+# FetchContent_Declare(squaternion
+#   GIT_REPOSITORY "git@github.com:MomsFriendlyRobotCompany/squaternion.git"
+#   GIT_TAG "origin/master"
+#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/squaternion"
+#   SOURCE_SUBDIR "cpp"
 # )
 
+# marko -----------------
+FetchContent_Declare(marko
+    GIT_REPOSITORY "https://github.com/gecko-robotics/marko.git"
+    GIT_TAG "origin/master"
+    SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/marko"
+    SOURCE_SUBDIR "cpp"
+)
+
+# messages ----------------
+FetchContent_Declare(messages
+    GIT_REPOSITORY "https://github.com/gecko-robotics/messages.git"
+    GIT_TAG "origin/main"
+    SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/messages"
+    SOURCE_SUBDIR "cpp"
+)
+
 LIST(APPEND libs
-    squaternion
-    # yivo
-    # serialcomm
-    # gcimock
-    # marko
+    messages
+    marko
 )
 
 FetchContent_MakeAvailable( ${libs} )
@@ -114,22 +119,23 @@ endforeach()
 
 
 # Library =====================================================================
-# configure_file(src/gecko2/version.hpp.in src/gecko2/version.hpp)
-
 add_library(${PROJECT_NAME} INTERFACE src)
 target_include_directories(${PROJECT_NAME}
-INTERFACE
-        ${CMAKE_SOURCE_DIR}/src
-        # ${marko_SOURCE_DIR}/include
+    INTERFACE
+        # ${CMAKE_SOURCE_DIR}/src
+        # ${marko_SOURCE_DIR}cpp/src/include
         # ${gcimock_SOURCE_DIR}/include
         # ${yivo_SOURCE_DIR}/src
+        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
+        $<INSTALL_INTERFACE:cpp/src>  # <prefix>/include/mylib
 )
-# target_link_libraries(${PROJECT_NAME}
-# INTERFACE
-#         # marko
-#         # yivo
-#         # Threads::Threads
-# )
+target_link_libraries(${PROJECT_NAME}
+INTERFACE
+        marko
+        messages
+        # yivo
+        # Threads::Threads
+)
 
 message(STATUS "Building ${PROJECT_NAME} examples is ${BUILD_EXAMPLES}")
 if(BUILD_EXAMPLES)
@@ -137,13 +143,8 @@ if(BUILD_EXAMPLES)
     # add_subdirectory(examples/quad)
 endif()
 
-message(STATUS "Building ${PROJECT_NAME} gtests is ${BUILD_GTESTS}")
-if(BUILD_GTESTS)
-    add_subdirectory(gtests)
-endif()
+# message(STATUS "Building ${PROJECT_NAME} gtests is ${BUILD_GTESTS}")
+# if(BUILD_GTESTS)
+#     add_subdirectory(gtests)
+# endif()
 
-# add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-#     COMMAND ${CMAKE_BUILD_DIR}
-#     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-#     # COMMENT "Running CRC32 check..."
-# )
