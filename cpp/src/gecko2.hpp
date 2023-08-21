@@ -38,30 +38,10 @@ gecko2 - for either arduinos or computers
 
 #if defined(UNIX) || defined(linux) || defined(__APPLE__)
   #include "unix/colors.hpp"
-  // #include "unix/logger.hpp"
   #include "unix/signals.hpp"
   #include "unix/time.hpp"
-  // #include "unix/network.hpp"
-
-  // udp communications - leave out?
-  // #include <marko/udpsocket.hpp>
-  // #include <marko/utils.hpp>
-
   #include <marko/marko.hpp>
-
-// serial communications
-// #include <serialcomm/serial.hpp>
 #endif
-
-// #if defined(ARDUINO)
-//   #include "arduino/leds/blinkled.hpp"
-//   #include "arduino/performance.hpp"
-//   #include "arduino/time.hpp"
-//   // #include <Servo.h>
-// // #else
-//   // #include <mock_arduino.hpp>
-//   // #include <mock_servo.hpp>
-// #endif
 
 // #include "apps/alarm.hpp"
 // #include "apps/heartbeat.hpp"
@@ -70,15 +50,3 @@ gecko2 - for either arduinos or computers
 // #include "gecko2/messages.hpp"
 #include "gecko2/fsm.hpp"
 #include "gecko2/toggle.hpp"
-// #include "gecko2/kf.hpp"
-
-// small savings over STL containers, this only
-// does fixed size arrays
-// #include "containers/vector.hpp"
-
-// deprecated
-// #include "gecko2/motors.hpp"
-// #include "gecko2/sensor.hpp"
-// #include "gecko2/serializer.hpp"
-// #include "gecko2/system.hpp"
-// #include "gecko2/autopilot.hpp"

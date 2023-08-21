@@ -7,6 +7,69 @@ In the neverending re-writes of my software ... here is a new version of `gecko`
 - python3
 - C++20
 
+| Library    | Arduino | Linux |
+|------------|---------|-------|
+| gciMock    |         | x
+| Serialcomm |         | x
+| Marko      |         | x
+| Messages   | x       | x
+| Slurm      | x       | x
+| gecko      | x       | x
+
+## Useful CMake
+
+```cmake
+FetchContent_Declare(gecko2
+    GIT_REPOSITORY "https://github.com/gecko-robotics/gecko2.git"
+    GIT_TAG "origin/main"
+    SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gecko2"
+    SOURCE_SUBDIR "cpp"
+)
+```
+
+```cmake
+# gciSensors -----------------
+FetchContent_Declare(gcisensors
+  GIT_REPOSITORY "git@github.com:the-guild-of-calamitous-intent/gciSensors.git"
+  GIT_TAG "origin/main"
+  SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gcisensors"
+)
+```
+
+```cmake
+# serialcomm -----------------
+FetchContent_Declare(serialcomm
+    GIT_REPOSITORY "https://github.com/gecko-robotics/serialcomm.git"
+    GIT_TAG "origin/main"
+    SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/serialcomm"
+)
+```
+
+```cmake
+# yivo -----------------
+FetchContent_Declare(yivo
+  GIT_REPOSITORY "https://github.com/MomsFriendlyRobotCompany/yivo.git"
+  GIT_TAG "origin/main"
+  SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/yivo"
+  SOURCE_SUBDIR "c++"
+)
+```
+
+```cmake
+# squaternion -----------------
+FetchContent_Declare(squaternion
+    GIT_REPOSITORY "https://github.com/MomsFriendlyRobotCompany/squaternion.git"
+    GIT_TAG "origin/master"
+    SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/squaternion"
+    SOURCE_SUBDIR "cpp"
+)
+```
+## To Do
+
+- [ ] wrap `gecko` namespace on things
+- [ ] write `slurm`
+- [ ] evaluate: https://www.foonathan.net/2022/06/cmake-fetchcontent/
+
 # MIT License
 
 **Copyright (c) 2010 gecko-robotics**

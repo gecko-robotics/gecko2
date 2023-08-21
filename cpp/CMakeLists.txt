@@ -3,6 +3,25 @@ cmake_minimum_required(VERSION 3.25.0)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+
+string(ASCII 27 Esc)
+set(Reset      "${Esc}[m")
+set(Bold       "${Esc}[1m")
+set(Red         "${Esc}[31m")
+set(Green       "${Esc}[32m")
+set(Yellow      "${Esc}[33m")
+set(Blue        "${Esc}[34m")
+set(Magenta     "${Esc}[35m")
+set(Cyan        "${Esc}[36m")
+set(White       "${Esc}[37m")
+set(BoldRed     "${Esc}[1;31m")
+set(BoldGreen   "${Esc}[1;32m")
+set(BoldYellow  "${Esc}[1;33m")
+set(BoldBlue    "${Esc}[1;34m")
+set(BoldMagenta "${Esc}[1;35m")
+set(BoldCyan    "${Esc}[1;36m")
+set(BoldWhite   "${Esc}[1;37m")
+
 # PROJECT_VERSION_MAJOR year
 # PROJECT_VERSION_MINOR month
 # PROJECT_VERSION_PATCH day
@@ -28,7 +47,7 @@ if(PROJECT_IS_TOP_LEVEL)
     set(BUILD_EXAMPLES ON)
     set(BUILD_GTESTS ON)
 else()
-    message(STATUS "-> ${PROJECT_NAME} is submodule")
+    message(STATUS "-> ${Cyan}${PROJECT_NAME} is submodule${Reset}")
     set(BUILD_EXAMPLES OFF)
     set(BUILD_GTESTS OFF)
 endif()
@@ -58,7 +77,7 @@ if(USE_MOCK)
     FetchContent_Declare(gcimock
         GIT_REPOSITORY "git@github.com:the-guild-of-calamitous-intent/gciMock.git"
         GIT_TAG "origin/main"
-        SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gcimock"
+        # SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gcimock"
     )
     LIST(APPEND libs gcimock)
 endif()
@@ -90,7 +109,8 @@ endif()
 FetchContent_Declare(marko
     GIT_REPOSITORY "https://github.com/gecko-robotics/marko.git"
     GIT_TAG "origin/master"
-    SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/marko"
+    # SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/marko"
+    # URL https://github.com/gecko-robotics/marko/archive/edebf9ec5df7e672fc85bea132405006675293bc.zip
     SOURCE_SUBDIR "cpp"
 )
 
@@ -98,7 +118,8 @@ FetchContent_Declare(marko
 FetchContent_Declare(messages
     GIT_REPOSITORY "https://github.com/gecko-robotics/messages.git"
     GIT_TAG "origin/main"
-    SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/messages"
+    # SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/messages"
+    # URL https://github.com/gecko-robotics/messages/archive/refs/heads/main.zip
     SOURCE_SUBDIR "cpp"
 )
 
@@ -111,9 +132,9 @@ FetchContent_MakeAvailable( ${libs} )
 
 foreach(lib ${libs})
     if(${lib}_POPULATED)
-        message(STATUS "=> Found ${lib}")
+        message(STATUS "=> ${Green}Found${Reset} ${lib}")
     else()
-        message(STATUS "*** Didn't find ${lib}")
+        message(STATUS "*** ${Red}Missing${Reset} ${lib}")
     endif()
 endforeach()
 
@@ -122,18 +143,17 @@ endforeach()
 add_library(${PROJECT_NAME} INTERFACE src)
 target_include_directories(${PROJECT_NAME}
     INTERFACE
-        # ${CMAKE_SOURCE_DIR}/src
+        ${CMAKE_SOURCE_DIR}/src
         # ${marko_SOURCE_DIR}cpp/src/include
         # ${gcimock_SOURCE_DIR}/include
         # ${yivo_SOURCE_DIR}/src
-        $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
-        $<INSTALL_INTERFACE:cpp/src>  # <prefix>/include/mylib
+        # $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
+        # $<INSTALL_INTERFACE:cpp/src>  # <prefix>/include/mylib
 )
 target_link_libraries(${PROJECT_NAME}
-INTERFACE
+    INTERFACE
         marko
         messages
-        # yivo
         # Threads::Threads
 )
 
@@ -143,8 +163,8 @@ if(BUILD_EXAMPLES)
     # add_subdirectory(examples/quad)
 endif()
 
-# message(STATUS "Building ${PROJECT_NAME} gtests is ${BUILD_GTESTS}")
-# if(BUILD_GTESTS)
-#     add_subdirectory(gtests)
-# endif()
+message(STATUS "Building ${PROJECT_NAME} gtests is ${BUILD_GTESTS}")
+if(BUILD_GTESTS)
+    add_subdirectory(gtests)
+endif()
 

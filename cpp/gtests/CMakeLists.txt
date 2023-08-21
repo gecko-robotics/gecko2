@@ -1,13 +1,18 @@
 include(FetchContent)
 
 # GTest -----------------
-FetchContent_Declare(gtest
-  GIT_REPOSITORY "https://github.com/google/googletest"
-  GIT_TAG "origin/main"
-  SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gtest"
+FetchContent_Declare(
+    gtest
+    URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
 )
-# set(EXAMPLES OFF CACHE INTERNAL "Dont build examples")
+# FetchContent_Declare(gtest
+#   GIT_REPOSITORY "https://github.com/google/googletest"
+#   GIT_TAG "origin/main"
+#   SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/gtest"
+# )
+
 FetchContent_MakeAvailable(gtest)
+
 if(gtest_POPULATED)
     message(STATUS "=> Found gtest")
 else()
@@ -18,11 +23,9 @@ endif()
 enable_testing()
 
 list(APPEND gtests
-    # main-gtest.cpp
     fsm.cpp
     blackbox.cpp
     messages.cpp
-    vector.cpp
 )
 
 # message(STATUS "gTests ----------------------")
@@ -42,4 +45,6 @@ list(APPEND gtests
 # run all tests
 add_executable(test-all ${gtests})
 target_link_libraries(test-all GTest::gtest_main ${PROJECT_NAME})
-add_test(NAME test-all COMMAND test-all)
+# add_test(NAME test-all COMMAND test-all)
+include(GoogleTest)
+gtest_discover_tests(test-all)
