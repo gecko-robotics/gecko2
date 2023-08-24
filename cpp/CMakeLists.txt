@@ -28,6 +28,8 @@ set(BoldWhite   "${Esc}[1;37m")
 # PROJECT_VERSION_TWEAK tweak
 project(gecko2 VERSION 2023.01.28.0)
 
+include(FetchContent)
+
 if(PROJECT_IS_TOP_LEVEL)
     cmake_host_system_information(RESULT HOST QUERY HOSTNAME)
     cmake_host_system_information(RESULT OSN QUERY OS_NAME)
@@ -46,6 +48,12 @@ if(PROJECT_IS_TOP_LEVEL)
 
     set(BUILD_EXAMPLES ON)
     set(BUILD_GTESTS ON)
+
+    FetchContent_Declare(
+        gtest
+        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+    )
+    list(APPEND libs gtest)
 else()
     message(STATUS "-> ${Cyan}${PROJECT_NAME} is submodule${Reset}")
     set(BUILD_EXAMPLES OFF)
@@ -125,7 +133,7 @@ FetchContent_MakeAvailable( ${libs} )
 add_library(${PROJECT_NAME} INTERFACE src)
 target_include_directories(${PROJECT_NAME}
     INTERFACE
-        ${CMAKE_SOURCE_DIR}/src
+        src
         # ${marko_SOURCE_DIR}cpp/src/include
         # ${gcimock_SOURCE_DIR}/include
         # ${yivo_SOURCE_DIR}/src
@@ -142,7 +150,7 @@ target_link_libraries(${PROJECT_NAME}
 
 message(STATUS "Building ${PROJECT_NAME} examples is ${BUILD_EXAMPLES}")
 if(BUILD_EXAMPLES)
-    add_subdirectory(examples/messages)
+    add_subdirectory(examples)
     # add_subdirectory(examples/quad)
 endif()
 
