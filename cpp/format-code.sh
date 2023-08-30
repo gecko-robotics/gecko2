@@ -1,3 +1,7 @@
 #!/bin/zsh
 
-clang-format -style=file:../dotfiles/clang-format.yml -i src/**/*.hpp examples/**/*.cpp examples/**/*.hpp gtests/**/*.cpp
+clang-format -style=file:/Users/kevin/github/dotfiles/clang-format.yml -i \
+    src/**/*.hpp \
+    examples/**/*.cpp \
+    examples/**/*.hpp \
+    gtests/**/*.cpp

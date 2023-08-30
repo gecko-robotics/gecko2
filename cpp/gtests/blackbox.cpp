@@ -8,12 +8,12 @@ struct BBMsg_t {
 };
 
 TEST(blackbox, basic) {
-  Blackbox<BBMsg_t,10> bb;
+  Blackbox<BBMsg_t, 10> bb;
   EXPECT_TRUE(bb.empty());
   EXPECT_FALSE(bb.full());
 
-  BBMsg_t msg{"hi",10};
-  for (int i=0; i<100; ++i) {
+  BBMsg_t msg{"hi", 10};
+  for (int i = 0; i < 100; ++i) {
     msg.err = i % 10;
     bb.push_back(msg);
   }
@@ -23,7 +23,7 @@ TEST(blackbox, basic) {
   EXPECT_EQ(bb.len(), 10);
 
   // printf("%d %d\n", bb.head(), bb.tail());
-  for (int i=0;i<10;i++) {
+  for (int i = 0; i < 10; i++) {
     // printf("%d %d %d\n", i, bb.head(), bb.tail());
     EXPECT_EQ(bb[i].err, i);
   }
@@ -33,14 +33,15 @@ TEST(blackbox, basic) {
 }
 
 TEST(blackbox, position) {
-  Blackbox<BBMsg_t,10> bb;
+  Blackbox<BBMsg_t, 10> bb;
 
-  BBMsg_t msg{"hi",10};
-  for (int i=0; i<10; ++i) bb.push_back(msg);
+  BBMsg_t msg{"hi", 10};
+  for (int i = 0; i < 10; ++i)
+    bb.push_back(msg);
 
   // printf("%d %d\n", bb.tail(), bb.size());
 
-  BBMsg_t *m = bb.data();
+  BBMsg_t *m        = bb.data();
   const BBMsg_t *m2 = bb.data();
   EXPECT_TRUE(m == m2);
   EXPECT_TRUE(0 == bb.head());
@@ -53,5 +54,4 @@ TEST(blackbox, position) {
   bb.push_back(msg);
   EXPECT_TRUE(2 == bb.head());
   EXPECT_TRUE(1 == bb.tail());
-
 }

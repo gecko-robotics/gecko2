@@ -5,7 +5,6 @@
 \**************************************************/
 #pragma once
 
-
 /**
 Simple Toggle class that allows you to toggle a state
 variable on/off.

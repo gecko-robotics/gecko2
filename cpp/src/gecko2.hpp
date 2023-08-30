@@ -26,7 +26,6 @@ gecko2 - for either arduinos or computers
 
 #include <messages.hpp>
 
-
 // #if defined(ARDUINO_ITSYBITSY_M0)
 // #include "gecko2/boards/adafruit/Adafruit_ItsyBitsy_M0.hpp"
 // // #elif defined(__SAMD51__)

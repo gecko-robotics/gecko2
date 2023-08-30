@@ -1,8 +1,8 @@
-#include <iostream>
+#include <fstream>
 #include <gecko2.hpp>
+#include <iostream>
 #include <string>
 #include <vector>
-#include <fstream>
 
 using namespace std;
 
@@ -15,7 +15,7 @@ struct node_t {
 };
 
 class TxtFileReader {
-  public:
+public:
   bool read_file(std::string filename) {
     ifstream fd;
     fd.open(filename);

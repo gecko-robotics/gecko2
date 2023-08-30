@@ -78,8 +78,6 @@ else()
     set(USE_MOCK OFF)
 endif()
 
-include(FetchContent)
-
 # gciMock -----------------
 if(USE_MOCK)
     FetchContent_Declare(gcimock
@@ -100,7 +98,6 @@ FetchContent_Declare(gunther
 FetchContent_Declare(marko
     GIT_REPOSITORY "https://github.com/gecko-robotics/marko.git"
     GIT_TAG "origin/master"
-    # URL https://github.com/gecko-robotics/marko/archive/edebf9ec5df7e672fc85bea132405006675293bc.zip
     SOURCE_SUBDIR "cpp"
 )
 
@@ -108,7 +105,6 @@ FetchContent_Declare(marko
 FetchContent_Declare(messages
     GIT_REPOSITORY "https://github.com/gecko-robotics/messages.git"
     GIT_TAG "origin/main"
-    # URL https://github.com/gecko-robotics/messages/archive/refs/heads/main.zip
     SOURCE_SUBDIR "cpp"
 )
 
@@ -120,38 +116,19 @@ LIST(APPEND libs
 
 FetchContent_MakeAvailable( ${libs} )
 
-# foreach(lib ${libs})
-#     if(DEFINED ${lib}_POPULATED)
-#         message(STATUS "=> ${Green}Found${Reset} ${lib}")
-#     else()
-#         message(STATUS "*** ${Red}Missing${Reset} ${lib}")
-#     endif()
-# endforeach()
-
-
 # Library =====================================================================
 add_library(${PROJECT_NAME} INTERFACE src)
-target_include_directories(${PROJECT_NAME}
-    INTERFACE
-        src
-        # ${marko_SOURCE_DIR}cpp/src/include
-        # ${gcimock_SOURCE_DIR}/include
-        # ${yivo_SOURCE_DIR}/src
-        # $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
-        # $<INSTALL_INTERFACE:cpp/src>  # <prefix>/include/mylib
-)
+target_include_directories(${PROJECT_NAME} INTERFACE src)
 target_link_libraries(${PROJECT_NAME}
     INTERFACE
         marko
         messages
         gunther
-        # Threads::Threads
 )
 
 message(STATUS "Building ${PROJECT_NAME} examples is ${BUILD_EXAMPLES}")
 if(BUILD_EXAMPLES)
     add_subdirectory(examples)
-    # add_subdirectory(examples/quad)
 endif()
 
 message(STATUS "Building ${PROJECT_NAME} gtests is ${BUILD_GTESTS}")

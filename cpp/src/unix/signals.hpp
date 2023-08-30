@@ -59,7 +59,7 @@ SIGSTP - suspend, ^Z, suspends a process
  */
 class SigCapture {
 public:
-  SigCapture(): enabled(false) {}
+  SigCapture() : enabled(false) {}
   // static void my_handler(int s); // signal handler function
   // void capture(int sig, std::function<void(int)> func);
   void capture(int sig) {
@@ -102,51 +102,5 @@ public:
 
   // protected:
   inline static bool ok = true; // global status on if a SIGINT has occured
-  bool enabled;   // is it turned on?
+  bool enabled;                 // is it turned on?
 };
-
-// bool SigCapture::ok = true;
-// bool SigCapture::ok = true;
-
-// SigCapture::SigCapture() : enabled(false) {}
-
-// void SigCapture::on() {
-//   if (enabled) return;
-
-//   struct sigaction sigIntHandler;
-//   sigIntHandler.sa_handler = SigCapture::shutdown;
-//   sigemptyset(&sigIntHandler.sa_mask);
-//   sigIntHandler.sa_flags = 0;
-
-//   sigaction(SIGINT, &sigIntHandler, NULL);
-
-//   enabled = true;
-// }
-
-// void SigCapture::shutdown(int sig) { ok = false; }
-
-// void SigCapture::capture(int sig) {
-//   if (enabled) return;
-
-//   struct sigaction sigIntHandler;
-//   sigIntHandler.sa_handler = SigCapture::shutdown; // can I do this?
-//   sigemptyset(&sigIntHandler.sa_mask);
-//   sigIntHandler.sa_flags = 0;
-
-//   sigaction(sig, &sigIntHandler, NULL);
-
-//   enabled = true;
-// }
-
-// void SigCapture::capture(int sig, void (*func)(int)) {
-//   if (enabled) return;
-
-//   struct sigaction sigIntHandler;
-//   sigIntHandler.sa_handler = func;
-//   sigemptyset(&sigIntHandler.sa_mask);
-//   sigIntHandler.sa_flags = 0;
-
-//   sigaction(sig, &sigIntHandler, NULL);
-
-//   enabled = true;
-// }

@@ -11,7 +11,6 @@
 // #include <gecko2/boards/adafruit/Adafruit_ItsyBitsy_M4.hpp>
 // #endif
 
-
 // class gciTFmini : public cSensor {
 // public:
 //   gciTFmini(uint8_t id) { msg.id = id; }
@@ -34,7 +33,8 @@
 //   }
 
 //   void get_msg(Yivo &y) {
-//     y.pack(MSG_DISTANCE, reinterpret_cast<uint8_t *>(&msg), sizeof(distance_t));
+//     y.pack(MSG_DISTANCE, reinterpret_cast<uint8_t *>(&msg),
+//     sizeof(distance_t));
 //   }
 
 //   // const distance_t send_msg() const {

@@ -14,7 +14,8 @@
 //                       {-0.00138898, 0.99580818, -0.00227335, 0.00503835},
 //                       {-0.01438271, 0.00673172, 0.9998954, -0.01364759}},
 //         gbias{-0.00889949 - 0.00235061 - 0.00475294},
-//         mbias{-13.15340002, 29.7714855, 0.0645215}, mm{0.96545537, 0.94936676,
+//         mbias{-13.15340002, 29.7714855, 0.0645215}, mm{0.96545537,
+//         0.94936676,
 //                                                        0.967698},
 //         sox(&Wire), lis3mdl(&Wire), bmp(&Wire) {}
 
@@ -39,7 +40,8 @@
 //       // does this lis3mdl.setPerformanceMode(LIS3MDL_HIGHMODE); // 300
 //       // already does this
 //       // lis3mdl.setOperationMode(LIS3MDL_CONTINUOUSMODE);
-//       // lis3mdl.setDataRate(LIS3MDL_DATARATE_300_HZ); // sets LIS3MDL_HIGHMODE
+//       // lis3mdl.setDataRate(LIS3MDL_DATARATE_300_HZ); // sets
+//       LIS3MDL_HIGHMODE
 //       // lis3mdl.setRange(LIS3MDL_RANGE_4_GAUSS);
 //     }
 
@@ -63,7 +65,8 @@
 //       // msg.az = s.az;
 //       // #else
 //       // msg.ax = sm[0][0] * s.ax + sm[0][1] * s.ay + sm[0][2] * s.az +
-//       // sm[0][3]; msg.ay = sm[1][0] * s.ax + sm[1][1] * s.ay + sm[1][2] * s.az
+//       // sm[0][3]; msg.ay = sm[1][0] * s.ax + sm[1][1] * s.ay + sm[1][2] *
+//       s.az
 //       // + sm[1][3]; msg.az = sm[2][0] * s.ax + sm[2][1] * s.ay + sm[2][2] *
 //       // s.az + sm[2][3]; #endif
 
@@ -124,7 +127,8 @@
 //   }
 
 //   void get_msg(Yivo &y) {
-//     y.pack(MSG_IMU_FULL, reinterpret_cast<uint8_t *>(&msg), sizeof(imu_full_t));
+//     y.pack(MSG_IMU_FULL, reinterpret_cast<uint8_t *>(&msg),
+//     sizeof(imu_full_t));
 //   }
 
 //   // const imu_full_t get_msg() const {

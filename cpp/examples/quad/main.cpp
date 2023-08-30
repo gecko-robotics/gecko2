@@ -24,7 +24,7 @@
 
 void setup() {
   bool ready;
-  date_t d{3,3,3};
+  date_t d{3, 3, 3};
 
   // Serial.begin(1000000);
   // Serial.setTimeout(5);
@@ -71,13 +71,6 @@ int main() {
 
   return 0;
 }
-
-
-
-
-
-
-
 
 // class cSensor {
 //   public:

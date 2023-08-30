@@ -7,9 +7,8 @@
 
 #include <array>
 
-template<typename T, const size_t BB_SIZE>
-class Blackbox {
- public:
+template <typename T, const size_t BB_SIZE> class Blackbox {
+public:
   Blackbox() : head_(0), tail_(0), size_(0) {}
 
   // Add a message to the ring buffer.
@@ -22,15 +21,15 @@ class Blackbox {
     // if (size_ > 1) tail_ = increment(tail_);
   }
 
-  T& operator[](const size_t i) { return data_[(head_ + i) % BB_SIZE]; }
-  T& front() { return data_[head_]; }
-  T& back() { return data_[tail_]; }
+  T &operator[](const size_t i) { return data_[(head_ + i) % BB_SIZE]; }
+  T &front() { return data_[head_]; }
+  T &back() { return data_[tail_]; }
 
   // I don't think this works, because it can wrap
   // const T* begin() { return &data_[0]; }
   // const T* end() { return &data_[size_]; }
   // T* data() { return &data_[0]; } // value?
-  T* data() { return data_.data(); } // value?
+  T *data() { return data_.data(); } // value?
 
   const size_t head() const { return head_; }
   const size_t tail() const { return tail_; }
@@ -48,7 +47,7 @@ class Blackbox {
   bool full() const { return size_ == BB_SIZE ? true : false; }
   bool empty() const { return size_ == 0 ? true : false; }
 
- protected:
+protected:
   size_t size_;
   size_t head_;
   size_t tail_;

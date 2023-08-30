@@ -5,7 +5,7 @@
 using namespace std;
 
 PublisherUDP p;
-date_t d{3,3,3};
+date_t d{3, 3, 3};
 
 int main() {
   cout << "hello" << endl;

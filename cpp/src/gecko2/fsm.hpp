@@ -5,8 +5,8 @@
 \**************************************************/
 #pragma once
 
-#include <stdint.h>
 #include <array>
+#include <stdint.h>
 #include <stdio.h>
 
 /*
@@ -37,25 +37,28 @@ struct Transition {
 };
 
 // State machine
-template<const uint8_t FSM_SIZE>
-class FSM {
- public:
-  FSM(): state_(0), array_ptr(0) {}
+template <const uint8_t FSM_SIZE> class FSM {
+public:
+  FSM() : state_(0), array_ptr(0) {}
 
   void init(fsm_state_t state, void (*on_enter)(void)) {
     if (on_enter != nullptr) on_enter();
     state_ = state;
   }
 
-  bool addTransition(fsm_state_t from, fsm_state_t to, bool (*condition)(void), void(*on_exit)(void), void(*on_enter)(void)){
+  bool addTransition(fsm_state_t from, fsm_state_t to, bool (*condition)(void),
+                     void (*on_exit)(void), void (*on_enter)(void)) {
     if (array_ptr == FSM_SIZE) return false;
     if (on_enter == nullptr || on_exit == nullptr) return false;
-    transitions_[array_ptr++] = Transition{from, to, condition, on_exit, on_enter};
+    transitions_[array_ptr++] =
+        Transition{from, to, condition, on_exit, on_enter};
     return true;
   }
 
-  // void SetState(fsm_state_t state, std::function<void(void)> onexit, std::function<void(void)> onenter) {
-  void setState(fsm_state_t state, void (*on_exit)(void), void (*on_enter)(void)) {
+  // void SetState(fsm_state_t state, std::function<void(void)> onexit,
+  // std::function<void(void)> onenter) {
+  void setState(fsm_state_t state, void (*on_exit)(void),
+                void (*on_enter)(void)) {
     if (state != state_) {
       on_exit();
       on_enter();
@@ -66,8 +69,8 @@ class FSM {
   void run() {
     // Check if there are any transitions that match the current state.
     // for (const Transition& transition : transitions_) {
-    for (size_t i=0; i < array_ptr; ++i) {
-      const Transition& transition = transitions_[i];
+    for (size_t i = 0; i < array_ptr; ++i) {
+      const Transition &transition = transitions_[i];
       // printf("%d\n",transition.from);
       if ((transition.from == state_) && transition.condition()) {
         // Transition to the new state.
@@ -85,5 +88,5 @@ class FSM {
 protected:
   size_t array_ptr;
   fsm_state_t state_;
-  std::array<Transition,FSM_SIZE> transitions_;
+  std::array<Transition, FSM_SIZE> transitions_;
 };
