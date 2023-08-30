@@ -13,17 +13,6 @@ unix - only for computers/sbc that run unix/linux/bsd/macos
 gecko2 - for either arduinos or computers
 */
 
-// #ifndef USE_GCIMOCK_SERIAL
-//   #define USE_GCIMOCK_SERIAL 1
-// #endif
-
-// #if USE_GCIMOCK_SERIAL
-//   #include <mock_serial.hpp>
-// #elif defined(ARDUINO)
-// #else
-//   #include <serialcomm/serial.hpp>
-// #endif
-
 #include <messages.hpp>
 
 // #if defined(ARDUINO_ITSYBITSY_M0)
@@ -40,12 +29,9 @@ gecko2 - for either arduinos or computers
   #include "unix/signals.hpp"
   #include "unix/time.hpp"
   #include <marko/marko.hpp>
+  #include <gunther.hpp>
 #endif
 
-// #include "apps/alarm.hpp"
-// #include "apps/heartbeat.hpp"
-
 #include "gecko2/blackbox.hpp"
-// #include "gecko2/messages.hpp"
 #include "gecko2/fsm.hpp"
 #include "gecko2/toggle.hpp"

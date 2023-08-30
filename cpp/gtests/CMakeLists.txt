@@ -4,7 +4,6 @@ enable_testing()
 list(APPEND gtests
     fsm.cpp
     blackbox.cpp
-    messages.cpp
 )
 
 # run all tests
