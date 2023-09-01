@@ -71,38 +71,41 @@ endif()
 #     message(WARNING "*** Could not find Threads ***")
 # endif()
 
-if(DEFINED USE_MOCK)
-    message(STATUS "Using mock interfaces")
-else()
-    message(STATUS "Not using mock interfaces")
-    set(USE_MOCK OFF)
-endif()
+# if(DEFINED USE_MOCK)
+#     message(STATUS "Using mock interfaces")
+# else()
+#     message(STATUS "Not using mock interfaces")
+#     set(USE_MOCK OFF)
+# endif()
 
 # gciMock -----------------
-if(USE_MOCK)
-    FetchContent_Declare(gcimock
-        GIT_REPOSITORY "https://github.com/the-guild-of-calamitous-intent/gciMock.git"
-        GIT_TAG "origin/main"
-    )
-    LIST(APPEND libs gcimock)
-endif()
+# if(USE_MOCK)
+#     FetchContent_Declare(gcimock
+#         GIT_REPOSITORY "https://github.com/the-guild-of-calamitous-intent/gciMock.git"
+#         GIT_TAG "origin/main"
+#     )
+#     LIST(APPEND libs gcimock)
+# endif()
 
 # gunther -----------------
-FetchContent_Declare(gunther
-  GIT_REPOSITORY "https://github.com/gecko-robotics/gunther.git"
-  GIT_TAG "origin/main"
-  SOURCE_SUBDIR "cpp"
+FetchContent_Declare(
+    gunther
+    GIT_REPOSITORY "https://github.com/gecko-robotics/gunther.git"
+    GIT_TAG "origin/main"
+    SOURCE_SUBDIR "cpp"
 )
 
 # marko -----------------
-FetchContent_Declare(marko
+FetchContent_Declare(
+    marko
     GIT_REPOSITORY "https://github.com/gecko-robotics/marko.git"
     GIT_TAG "origin/master"
     SOURCE_SUBDIR "cpp"
 )
 
 # messages ----------------
-FetchContent_Declare(messages
+FetchContent_Declare(
+    messages
     GIT_REPOSITORY "https://github.com/gecko-robotics/messages.git"
     GIT_TAG "origin/main"
     SOURCE_SUBDIR "cpp"

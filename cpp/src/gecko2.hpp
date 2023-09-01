@@ -32,6 +32,8 @@ gecko2 - for either arduinos or computers
   #include <gunther.hpp>
 #endif
 
-#include "gecko2/blackbox.hpp"
-#include "gecko2/fsm.hpp"
-#include "gecko2/toggle.hpp"
+#include "blackbox.hpp"
+#include "fsm.hpp"
+#include "toggle.hpp"
+#include "vector.hpp"
+#include "return_type.hpp"

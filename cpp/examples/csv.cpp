@@ -14,27 +14,27 @@ struct node_t {
   std::string msg; // "bob_t"
 };
 
-class TxtFileReader {
-public:
-  bool read_file(std::string filename) {
-    ifstream fd;
-    fd.open(filename);
-    if (!fd.is_open()) {
-      cout << "couldn't open file" << endl;
-      return false;
-    }
+// class TxtFileReader {
+// public:
+//   bool read_file(std::string filename) {
+//     ifstream fd;
+//     fd.open(filename);
+//     if (!fd.is_open()) {
+//       cout << "couldn't open file" << endl;
+//       return false;
+//     }
 
-    while (fd.good()) {
-      string line;
-      std::getline(fd, line);
-      lines.push_back(line);
-    }
+//     while (fd.good()) {
+//       string line;
+//       std::getline(fd, line);
+//       lines.push_back(line);
+//     }
 
-    return true;
-  }
+//     return true;
+//   }
 
-  ascii_t lines;
-};
+//   ascii_t lines;
+// };
 
 // class Csv: public Ascii, public TxtFileReader {
 //   public:

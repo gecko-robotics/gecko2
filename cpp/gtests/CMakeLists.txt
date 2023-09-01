@@ -4,6 +4,7 @@ enable_testing()
 list(APPEND gtests
     fsm.cpp
     blackbox.cpp
+    vector.cpp
 )
 
 # run all tests
