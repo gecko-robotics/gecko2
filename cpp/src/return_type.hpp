@@ -1,6 +1,9 @@
 
 #pragma once
 
+#ifndef __RETURN_TYPE_HPP__
+#define __RETURN_TYPE_HPP__
+
 #include <type_traits> // std::is_enum
 
 /*
@@ -25,3 +28,5 @@ struct ret_t {
   E error=E::OK;
   inline explicit operator bool() const noexcept { return error==E::OK ? true: false; }
 };
+
+#endif

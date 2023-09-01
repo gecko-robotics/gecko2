@@ -24,6 +24,10 @@ gecko2 - for either arduinos or computers
 // #include "gecko2/boards/generic/generic.hpp"
 // #endif
 
+#if defined(ARDUINO)
+  #include "arduino/time.hpp"
+#endif
+
 #if defined(UNIX) || defined(linux) || defined(__APPLE__)
   #include "unix/colors.hpp"
   #include "unix/signals.hpp"
@@ -37,3 +41,4 @@ gecko2 - for either arduinos or computers
 #include "toggle.hpp"
 #include "vector.hpp"
 #include "return_type.hpp"
+#include "units.hpp"
