@@ -9,7 +9,9 @@ class Node {
   Node(): s(sizeof(accel_t)) {}
 
   void pub() {
+    string path{"udp://0.0.0.0:9000"};
     inetaddr_t addr = inet_sockaddr(path);
+    p.reuseSocket(true);
     p.register_addr(addr);
     p.bind(path);
     while (true) {
@@ -25,23 +27,26 @@ class Node {
   void callback(const message_t& m) {
     static int i = 0;
     accel_t d = unpack<accel_t>(m);
-    // EXPECT_EQ(d.a, ps_test_data[i++].a);
     cout << d.accel.x << endl;
   }
 
   void sub() {
+    string path{"udp://127.0.0.1:9000"};
+    // inetaddr_t addr = inet_sockaddr(path);
+    // s.connect(path);
+    // s.reuseSocket(true);
     s.connect(path);
-    s.register_cb( Node::callback );
+    // s.register_cb( Node::callback );
     while (true) {
-      s.once();
+      // s.once();
+      message_t m = s.recv(sizeof(accel_t));
+      accel_t d = unpack<accel_t>(m);
+      cout << d.accel.x << " " << d.accel.y  << " " << d.accel.z << endl;
     }
   }
 
   PublisherUDP p;
   SubscriberUDP s;
-
-    string path{"udp://127.0.0.1:9000"};
-
 };
 
 void pub_thread() {
