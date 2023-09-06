@@ -1,27 +1,27 @@
+# Threads -----------------
+find_package(Threads REQUIRED)
+if(Threads_FOUND)
+    message(STATUS ">> Threads found")
+    if(CMAKE_USE_PTHREADS_INIT)
+        message(STATUS " -> Using pthreads")
+    endif()
+else()
+    message(WARNING "*** Could not find Threads ***")
+endif()
 
 list(APPEND examples
     msg
     csv
+    node
 )
 
 
 foreach(app ${examples})
     add_executable(${app} ${app}.cpp)
-    # target_include_directories(${PROGRAM}
-    #     PRIVATE
-    #         ${CMAKE_SOURCE_DIR}/src
-    #         # ${gcisensors_SOURCE_DIR}/src
-    #         # ${yivo_SOURCE_DIR}/src
-    #         # ${gcimock_SOURCE_DIR}/include
-    #         # ${squaternion_SOURCE_DIR}/src
-    #         # ${marko_SOURCE_DIR}/include
-    #         # ${serialcomm_SOURCE_DIR}/include
-    # )
     target_link_libraries(${app}
         PRIVATE
             ${PROJECT_NAME}
-            # ${libs}
-            # Threads::Threads
+            Threads::Threads
     )
 endforeach()
 
