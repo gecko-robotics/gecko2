@@ -12,7 +12,8 @@ endif()
 list(APPEND examples
     msg
     csv
-    node
+    node_udp
+    node_uds
 )
 
 
@@ -30,4 +31,3 @@ add_custom_command(
         COMMAND ${CMAKE_COMMAND} -E copy
                 ${CMAKE_CURRENT_SOURCE_DIR}/nodes.csv
                 ${CMAKE_BINARY_DIR}/nodes.csv )
-

@@ -18,25 +18,23 @@ class Node {
       accel_t d{1,2,3};
       message_t m = pack<accel_t>(d);
       p.publish(m);
-      cout << "." << flush;
-      sleep(1);
+      // cout << "." << flush;
+      msleep(100);
     }
   }
 
-  static
-  void callback(const message_t& m) {
-    static int i = 0;
-    accel_t d = unpack<accel_t>(m);
-    cout << d.accel.x << endl;
-  }
+  // static
+  // void callback(const message_t& m) {
+  //   static int i = 0;
+  //   accel_t d = unpack<accel_t>(m);
+  //   cout << d.accel.x << endl;
+  // }
 
   void sub() {
     string path{"udp://127.0.0.1:9000"};
-    // inetaddr_t addr = inet_sockaddr(path);
-    // s.connect(path);
-    // s.reuseSocket(true);
+    inetaddr_t addr = inet_sockaddr(path);
     s.connect(path);
-    // s.register_cb( Node::callback );
+    // s.register_cb( Node::callback ); // could do a callback
     while (true) {
       // s.once();
       message_t m = s.recv(sizeof(accel_t));
