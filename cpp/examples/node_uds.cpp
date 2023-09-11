@@ -9,11 +9,10 @@ class Node {
   Node(): s(sizeof(accel_t)) {}
 
   void pub() {
-    string path{"unix://./ps.uds"};
-    inetaddr_t addr = inet_sockaddr(path);
-    p.reuseSocket(true);
+    // string path{"unix://./ps.uds"};
+    // unixaddr_t addr = unix_sockaddr(path);
+    unixaddr_t addr = unix_sockaddr();
     p.register_addr(addr);
-    p.bind(path);
     while (true) {
       accel_t d{1,2,3};
       message_t m = pack<accel_t>(d);
@@ -27,26 +26,22 @@ class Node {
   void callback(const message_t& m) {
     static int i = 0;
     accel_t d = unpack<accel_t>(m);
-    cout << d.accel.x << endl;
+    cout << i++ << " " << d.accel.x << " " << d.accel.y  << " " << d.accel.z << endl;
   }
 
   void sub() {
-    string path{"unix://./ps.uds"};
-    // inetaddr_t addr = inet_sockaddr(path);
-    // s.connect(path);
-    // s.reuseSocket(true);
-    // s.connect(path);
-    // s.register_cb( Node::callback );
+    // string path{"unix://./ps.uds"};
+    // unixaddr_t addr = unix_sockaddr(path);
+    unixaddr_t addr = unix_sockaddr();
+    s.bind(addr);
+    s.register_cb( Node::callback );
     while (true) {
-      // s.once();
-      message_t m = s.recv(sizeof(accel_t));
-      accel_t d = unpack<accel_t>(m);
-      cout << d.accel.x << " " << d.accel.y  << " " << d.accel.z << endl;
+      s.once();
     }
   }
 
-  PublisherUDS p;
-  SubscriberUDS s;
+  PublisherUnix p;
+  SubscriberUnix s;
 };
 
 void pub_thread() {
@@ -59,22 +54,7 @@ void sub_thread() {
   node.sub();
 }
 
-// void pub_thread_un() {
-//   unixaddr_t addr = unix_sockaddr(psunix);
-//   PublisherUnix p;
-//   p.register_addr(addr);
-//   for (int i=0; i < LOOP; ++i) {
-//     message_t m = pack<psdata_t>(ps_test_data[i]);
-//     p.publish(m);
-//     marko::msleep(1);
-//   }
-// }
-
 int main() {
-  // cout << "hello" << endl;
-
-  // Node node;
-  // node.run();
   thread subth(sub_thread);
   marko::msleep(1);
   thread pubth(pub_thread);

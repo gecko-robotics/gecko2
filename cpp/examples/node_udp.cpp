@@ -13,7 +13,7 @@ class Node {
     inetaddr_t addr = inet_sockaddr(path);
     p.reuseSocket(true);
     p.register_addr(addr);
-    p.bind(path);
+    p.bind(addr);
     while (true) {
       accel_t d{1,2,3};
       message_t m = pack<accel_t>(d);
@@ -33,7 +33,7 @@ class Node {
   void sub() {
     string path{"udp://127.0.0.1:9000"};
     inetaddr_t addr = inet_sockaddr(path);
-    s.connect(path);
+    s.connect(addr);
     // s.register_cb( Node::callback ); // could do a callback
     while (true) {
       // s.once();
@@ -57,22 +57,7 @@ void sub_thread() {
   node.sub();
 }
 
-// void pub_thread_un() {
-//   unixaddr_t addr = unix_sockaddr(psunix);
-//   PublisherUnix p;
-//   p.register_addr(addr);
-//   for (int i=0; i < LOOP; ++i) {
-//     message_t m = pack<psdata_t>(ps_test_data[i]);
-//     p.publish(m);
-//     marko::msleep(1);
-//   }
-// }
-
 int main() {
-  // cout << "hello" << endl;
-
-  // Node node;
-  // node.run();
   thread subth(sub_thread);
   marko::msleep(1);
   thread pubth(pub_thread);
