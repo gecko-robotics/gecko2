@@ -53,7 +53,7 @@ class vector {
     memset(buffer.data(), 0 , MAX_VECTOR_SIZE);
   }
 
-  const T& operator[](const size_t i) const {
+  const T& operator[](size_t i) {
     if (i >= bsize) i = bsize - 1;
     return buffer[i];
   }
