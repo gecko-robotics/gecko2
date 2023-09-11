@@ -53,10 +53,11 @@ class vector {
     memset(buffer.data(), 0 , MAX_VECTOR_SIZE);
   }
 
-  const T& operator[](size_t i) {
-    if (i >= bsize) i = bsize - 1;
-    return buffer[i];
-  }
+  // How do you differentiate between this and below?
+  // const T& operator[](size_t i) {
+  //   if (i >= bsize) i = bsize - 1;
+  //   return buffer[i];
+  // }
 
   T& operator[](const size_t i) {
     if (i >= bsize && bsize == MAX_VECTOR_SIZE) return buffer[bsize - 1];
