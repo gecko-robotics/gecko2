@@ -54,10 +54,10 @@ class vector {
   }
 
   // How do you differentiate between this and below?
-  // const T& operator[](size_t i) {
-  //   if (i >= bsize) i = bsize - 1;
-  //   return buffer[i];
-  // }
+  const T& operator[](const size_t i) const {
+    if (i >= bsize) return buffer[bsize - 1]; // i = bsize - 1;
+    return buffer[i];
+  }
 
   T& operator[](const size_t i) {
     if (i >= bsize && bsize == MAX_VECTOR_SIZE) return buffer[bsize - 1];
