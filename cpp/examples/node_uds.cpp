@@ -12,7 +12,7 @@ class Node {
     // string path{"unix://./ps.uds"};
     // unixaddr_t addr = unix_sockaddr(path);
     unixaddr_t addr = unix_sockaddr();
-    p.register_addr(addr);
+    // p.register_addr(addr);
     while (true) {
       accel_t d{1,2,3};
       message_t m = pack<accel_t>(d);

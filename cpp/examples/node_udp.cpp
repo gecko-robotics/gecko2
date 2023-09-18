@@ -12,7 +12,7 @@ class Node {
     string path{"udp://0.0.0.0:9000"};
     inetaddr_t addr = inet_sockaddr(path);
     p.reuseSocket(true);
-    p.register_addr(addr);
+    // p.register_addr(addr);
     p.bind(addr);
     while (true) {
       accel_t d{1,2,3};

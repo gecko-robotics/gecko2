@@ -14,6 +14,7 @@ list(APPEND examples
     csv
     node_udp
     node_uds
+    config
 )
 
 
@@ -31,3 +32,9 @@ add_custom_command(
         COMMAND ${CMAKE_COMMAND} -E copy
                 ${CMAKE_CURRENT_SOURCE_DIR}/nodes.csv
                 ${CMAKE_BINARY_DIR}/nodes.csv )
+
+add_custom_command(
+    TARGET config POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+            ${CMAKE_CURRENT_SOURCE_DIR}/config.txt
+            ${CMAKE_BINARY_DIR}/config.txt )

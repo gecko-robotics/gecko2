@@ -1,0 +1,9 @@
+# config
+
+mac_port = /dev/tty.usbmodem1406
+unix_port = /dev/tty.usbmodem1406
+speed = 34
+cal = [1,2,3,4,5,6,7]
+double = 123.45
+double = -1.2345
+double = 10000.0
