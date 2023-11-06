@@ -22,15 +22,20 @@ namespace Units {
 // Angular
 constexpr dorf rad2deg = 180.0 / M_PI;
 constexpr dorf deg2rad = M_PI / 180.0;
-constexpr dorf rps2rpm = 0.0;     // FIXME
-constexpr dorf rpm2rps = 0.10472; // FIXME
+constexpr dorf rps2rpm = 30.0 / M_PI; // rads/sec -> rpm, 60s/min*rev/(2*pi) -> 30/pi
+constexpr dorf rpm2rps = M_PI / 30.0; // rpm -> rads/sec
 
 // Magnetism
 constexpr dorf gauss2tesla = 1e-5;
 constexpr dorf tesla2gauss = 1e5;
 
+// Standard Air Parameters
+// https://en.wikipedia.org/wiki/Standard_sea_level
+constexpr dorf AIR_PRESSURE_PA = 101325.01576;  // Pa
+constexpr dorf AIR_DENSITY = 1.225;             // kg/m^3
+constexpr dorf AIR_TEMPERATURE_K = 288.15;      // K
+
 // Pressure
-constexpr dorf STD_PRESSURE_PA = 101325.0;                   // Pa
 constexpr dorf pa2atm = 9.86923e-6;
 constexpr dorf atm2pa = 101325.0;
 

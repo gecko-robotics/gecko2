@@ -26,7 +26,8 @@ inline void sleep(int sec) {
 } // namespace gecko
 
 // std::string time_date();
-static std::string time_date() {
+static
+std::string time_date() {
   time_t t     = std::time(nullptr);
   struct tm lt = *std::localtime(&t);
 
@@ -37,7 +38,7 @@ static std::string time_date() {
 
 // Arduino Alt functions ////////////////////////////////////////////////
 static
-uint64_t microsSinceEpoch() {
+uint64_t utime() {
   // struct timeval tv;
   // uint64_t micros = 0;
   // gettimeofday(&tv, NULL);
@@ -52,7 +53,7 @@ uint64_t microsSinceEpoch() {
 }
 
 static
-uint64_t millis() {
+uint64_t mtime() {
   // struct timeval tv;
   // uint64_t micros = 0;
   // gettimeofday(&tv, NULL);
