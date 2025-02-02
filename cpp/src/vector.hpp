@@ -81,8 +81,8 @@ class vector {
   T* data() { return buffer.data(); } // FIXME: this goes beyond bsize
 
   protected:
-  // T buffer[MAX_VECTOR_SIZE];
-  std::array<T,MAX_VECTOR_SIZE> buffer;
+  T buffer[MAX_VECTOR_SIZE];
+  // std::array<T,MAX_VECTOR_SIZE> buffer;
   uint16_t bsize;
 };
 

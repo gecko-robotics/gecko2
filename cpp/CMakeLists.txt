@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.21.0)
 
+set(CMAKE_C_STANDARD 17)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -40,6 +41,7 @@ if(PROJECT_IS_TOP_LEVEL)
     message(STATUS "  Project: ${PROJECT_NAME}")
     message(STATUS "  Version: ${CMAKE_PROJECT_VERSION}")
     message(STATUS "  C++ ${CMAKE_CXX_STANDARD}")
+    message(STATUS "  C ${CMAKE_C_STANDARD}")
     message(STATUS "-------------------------------------")
     message(STATUS " ${HOST}")
     message(STATUS " ${OSN}: ${OS_VERSION}")
@@ -87,55 +89,57 @@ endif()
 #     LIST(APPEND libs gcimock)
 # endif()
 
-# gunther -----------------
-FetchContent_Declare(
-    gunther
-    GIT_REPOSITORY "https://github.com/gecko-robotics/gunther.git"
-    GIT_TAG "origin/main"
-    SOURCE_SUBDIR "cpp"
-)
+# # gunther -----------------
+# FetchContent_Declare(
+#     gunther
+#     GIT_REPOSITORY "https://github.com/gecko-robotics/gunther.git"
+#     GIT_TAG "origin/main"
+#     SOURCE_SUBDIR "cpp"
+# )
 
-# marko -----------------
-FetchContent_Declare(
-    marko
-    GIT_REPOSITORY "https://github.com/gecko-robotics/marko.git"
-    GIT_TAG "origin/master"
-    SOURCE_SUBDIR "cpp"
-)
+# # marko -----------------
+# FetchContent_Declare(
+#     marko
+#     GIT_REPOSITORY "https://github.com/gecko-robotics/marko.git"
+#     GIT_TAG "origin/master"
+#     SOURCE_SUBDIR "cpp"
+# )
 
-# messages ----------------
-FetchContent_Declare(
-    messages
-    GIT_REPOSITORY "https://github.com/gecko-robotics/messages.git"
-    GIT_TAG "origin/main"
-    SOURCE_SUBDIR "cpp"
-)
+# # messages ----------------
+# FetchContent_Declare(
+#     messages
+#     GIT_REPOSITORY "https://github.com/gecko-robotics/messages.git"
+#     GIT_TAG "origin/main"
+#     SOURCE_SUBDIR "cpp"
+# )
 
-LIST(APPEND libs
-    messages
-    marko
-    gunther
-)
+# LIST(APPEND libs
+#     messages
+#     marko
+#     gunther
+# )
 
 FetchContent_MakeAvailable( ${libs} )
 
 # Library =====================================================================
 add_library(${PROJECT_NAME} INTERFACE src)
-target_include_directories(${PROJECT_NAME} INTERFACE src)
-target_link_libraries(${PROJECT_NAME}
-    INTERFACE
-        marko
-        messages
-        gunther
+target_include_directories(${PROJECT_NAME} INTERFACE 
+  src
 )
+# target_link_libraries(${PROJECT_NAME}
+#     INTERFACE
+#         marko
+#         messages
+#         gunther
+# )
 
 message(STATUS "Building ${PROJECT_NAME} examples is ${BUILD_EXAMPLES}")
 if(BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
-message(STATUS "Building ${PROJECT_NAME} gtests is ${BUILD_GTESTS}")
-if(BUILD_GTESTS)
-    add_subdirectory(gtests)
-endif()
+# message(STATUS "Building ${PROJECT_NAME} gtests is ${BUILD_GTESTS}")
+# if(BUILD_GTESTS)
+#     add_subdirectory(gtests)
+# endif()
 

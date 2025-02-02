@@ -13,7 +13,7 @@ unix - only for computers/sbc that run unix/linux/bsd/macos
 gecko2 - for either arduinos or computers
 */
 
-#include <messages.hpp>
+// #include <messages.hpp>
 
 // #if defined(ARDUINO_ITSYBITSY_M0)
 // #include "gecko2/boards/adafruit/Adafruit_ItsyBitsy_M0.hpp"
@@ -32,8 +32,8 @@ gecko2 - for either arduinos or computers
   #include "unix/colors.hpp"
   #include "unix/signals.hpp"
   #include "unix/time.hpp"
-  #include <marko/marko.hpp>
-  #include <gunther.hpp>
+  // #include <marko/marko.hpp>
+  // #include <gunther.hpp>
 #endif
 
 #include "blackbox.hpp"
@@ -42,3 +42,4 @@ gecko2 - for either arduinos or computers
 #include "vector.hpp"
 #include "return_type.hpp"
 #include "units.hpp"
+#include "linked_list.h"

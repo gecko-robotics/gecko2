@@ -22,8 +22,7 @@ bool is_matrix(const std::string_view &value) {
   return false;
 }
 
-int main()
-{
+int main() {
   // std::ifstream is RAII, i.e. no need to call close
   std::ifstream cFile ("config.txt");
   if (cFile.is_open()) {
